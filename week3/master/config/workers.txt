@@ -1,0 +1,2 @@
+alpha,http://ec2-1.compute.amazonaws.com:8000
+bravo,http://ec2-2.compute.amazonaws.com:8000

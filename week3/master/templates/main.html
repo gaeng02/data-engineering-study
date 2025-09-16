@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><title>Main</title></head>
+<body>
+  <h2>메인</h2>
+  <p>안녕하세요, <b>{{ user }}</b> 님</p>
+  <ul>
+    <li><a href="/post/1?user={{ user }}">게시글 1</a></li>
+    <li><a href="/post/2?user={{ user }}">게시글 2</a></li>
+    <li><a href="/post/3?user={{ user }}">게시글 3</a></li>
+  </ul>
+  <p><a href="/home?user={{ user }}">홈</a></p>
+</body>
+</html>
