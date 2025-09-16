@@ -3,4 +3,4 @@
 __pycache__/
 .venv/
 
-khuda_de.pem
+*.pem
