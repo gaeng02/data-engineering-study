@@ -45,9 +45,9 @@ def fanout (path : str, payload : dict, timeout_sec : float = 1.5) :
         try:
             resp = requests.post(url, json = body, timeout = timeout_sec)
             if (resp.status_code >= 400) :
-                _append_error(f"{datetime.now()} | FAIL {name} {url} {resp.status_code} | payload={body}")
+                _append_error(f"{datetime.now().isoformat(timespec="seconds")} | FAIL {name} {url} {resp.status_code} | payload={body}")
         except Exception as e :
-            _append_error(f"{datetime.now()} | ERROR {name} {url} | {type(e).__name__}: {e} | payload={body}")
+            _append_error(f"{datetime.now().isoformat(timespec="seconds")} | ERROR {name} {url} | {type(e).__name__}: {e} | payload={body}")
 
 @app.get("/login", response_class = HTMLResponse)
 def login_page (request : Request) :
@@ -61,7 +61,7 @@ def login (username : str = Form(...), password : str = Form(...)) :
     password = (password or "").strip() or "1234"
     
     fanout("/login", {
-        "ts" : datetime.now(),
+        "ts" : datetime.now().isoformat(timespec="seconds"),
         "user": username,
         "password": password,
         "action": "login"
@@ -73,7 +73,7 @@ def login (username : str = Form(...), password : str = Form(...)) :
 @app.get("/main", response_class = HTMLResponse)
 def main_page (request : Request, user : str = "guest") :
     fanout("/main", {
-        "ts": datetime.now(),
+        "ts": datetime.now().isoformat(timespec="seconds"),
         "user": user,
         "action": "view_main"
     })
@@ -86,7 +86,7 @@ def post_page (post_id : int, request : Request, user : str = "guest") :
         return HTMLResponse("Not Found", status_code = 404)
 
     fanout(f"/post/{post_id}", {
-        "ts": datetime.now(),
+        "ts": datetime.now().isoformat(timespec="seconds"),
         "user": user,
         "action": f"view_post_{post_id}",
         "post_id": post_id
@@ -101,7 +101,7 @@ def post_page (post_id : int, request : Request, user : str = "guest") :
 @app.get("/home")
 def home(user : str = "guest") :
     fanout("/home", {
-        "ts": datetime.now(),
+        "ts": datetime.now().isoformat(timespec="seconds"),
         "user": user,
         "action": "click_home"
     })
