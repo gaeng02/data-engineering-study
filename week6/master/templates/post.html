@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} - 블로그 마스터 서버{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">홈</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ post.title }}</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <article class="card">
+            <div class="card-header">
+                <h1 class="card-title mb-0">{{ post.title }}</h1>
+                <div class="d-flex justify-content-between align-items-center mt-2">
+                    <small class="text-muted">작성자: {{ post.author }}</small>
+                    <small class="text-muted">{{ post.created_at.strftime('%Y년 %m월 %d일') }}</small>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="post-content">
+                    {{ post.content | safe }}
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <button class="btn btn-danger me-2 like-btn" data-post-id="{{ post.id }}">
+                            ❤️ 좋아요 <span class="like-count">{{ post.likes_count }}</span>
+                        </button>
+                        <button class="btn btn-secondary me-2 comment-btn" data-post-id="{{ post.id }}">
+                            💬 댓글 달기
+                        </button>
+                        {% if user and user.nickname == "gaeng02" %}
+                        <a href="/admin/edit/{{ post.id }}" class="btn btn-warning">
+                            ✏️ 수정하기
+                        </a>
+                        {% endif %}
+                    </div>
+                    <a href="/" class="btn btn-outline-primary">목록으로 돌아가기</a>
+                </div>
+            </div>
+        </article>
+    </div>
+</div>
+
+<!-- 관련 포스트 섹션 -->
+<div class="row mt-4">
+    <div class="col-12">
+        <h3>📖 다른 포스트도 확인해보세요</h3>
+        <p class="text-muted">다른 포스트를 클릭하면 로그가 기록됩니다.</p>
+        <div class="row">
+            {% for other_post in other_posts %}
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">{{ other_post.title }}</h6>
+                        <p class="card-text small">{{ other_post.preview[:100] }}...</p>
+                        <a href="/post/{{ other_post.id }}" class="btn btn-outline-primary btn-sm">보기</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

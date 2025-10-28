@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Data Engineering Blog Server{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="card">
+            <div class="card-header text-center">
+                <h3>🔐 Data Engineering Blog Server Login</h3>
+                <p class="mb-0 text-muted">닉네임만 입력하면 로그인됩니다</p>
+                <small class="text-info">로그인 후 블로그를 이용하실 수 있습니다</small>
+            </div>
+            <div class="card-body">
+                <form method="post" action="/login">
+                    <div class="mb-3">
+                        <label for="nickname" class="form-label">닉네임</label>
+                        <input type="text" class="form-control" id="nickname" name="nickname" 
+                               placeholder="닉네임을 입력하세요" required>
+                        <div class="form-text">비밀번호는 필요하지 않습니다.</div>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">로그인</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                <small class="text-muted">
+                    로그인하면 모든 활동이 로그로 기록됩니다.<br>
+                    <a href="/">Home</a>
+                </small>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-body">
+                <h6>ℹ️ 로그인 시스템 정보</h6>
+                <ul class="small mb-0">
+                    <li>닉네임만 입력하면 자동으로 계정이 생성됩니다</li>
+                    <li>비밀번호는 필요하지 않습니다</li>
+                    <li>로그인/로그아웃이 모두 로그로 기록됩니다</li>
+                    <li>세션은 브라우저 쿠키로 관리됩니다</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
